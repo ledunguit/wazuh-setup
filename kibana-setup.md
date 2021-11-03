@@ -26,7 +26,7 @@ sudo apt update
 ### Kibana installation and configuration
 1. Install the Kibana package:
 ```shell
-sudo apt install Kibana=7.11.2
+sudo apt install kibana=7.11.2
 ```
 2. Download the Kibana configuration file: `kibana.yml`:
 ```shell
