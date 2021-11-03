@@ -8,33 +8,33 @@ This process will go through the installation of the **Kibana** in a 2 GB RAM **
 ### Adding the Elastic Stack repository
 1. Install the necessary packages for the installation:
 ```shell
-# apt-get install lsb-release curl apt-transport-https zip unzip gnupg2
+sudo apt-get install lsb-release curl apt-transport-https zip unzip gnupg2
 ```
 2. Install the GPG key:
 ```shell
-# curl -s https://artifacts.elastic.co/GPG-KEY-elasticsearch | apt-key add -
+sudo curl -s https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
 ```
 3. Add the repository:
 ```shell
-# echo "deb https://artifacts.elastic.co/packages/7.x/apt stable main" | tee /etc/apt/sources.list.d/elastic-7.x.list
+sudo echo "deb https://artifacts.elastic.co/packages/7.x/apt stable main" | sudo tee /etc/apt/sources.list.d/elastic-7.x.list
 ```
 4. Update the package information:
 ```shell
-# apt update
+sudo apt update
 ```
 
 ### Kibana installation and configuration
 1. Install the Kibana package:
 ```shell
-# apt install Kibana=7.11.2
+sudo apt install Kibana=7.11.2
 ```
 2. Download the Kibana configuration file: `kibana.yml`:
 ```shell
-# curl -so /etc/kibana/kibana.yml https://packages.wazuh.com/resources/4.1/elastic-stack/kibana/7.x/kibana.yml
+sudo curl -so /etc/kibana/kibana.yml https://packages.wazuh.com/resources/4.1/elastic-stack/kibana/7.x/kibana.yml
 ```
 3. Edit the file `/etc/kibana/kibana.yml`:
 ```shell
-# nano /etc/kibana/kibana.yml
+sudo nano /etc/kibana/kibana.yml
 ```
 It will look like this:
 
@@ -90,14 +90,14 @@ elasticsearch.hosts: http://10.0.2.11:9200
 
 4. Create the /usr/share/kibana/data directory:
 ```shell
-# mkdir /usr/share/kibana/data
-# chown -R kibana:kibana /usr/share/kibana
+sudo mkdir /usr/share/kibana/data
+sudo chown -R kibana:kibana /usr/share/kibana
 ```
 5. Install the Wazuh Kibana plugin:
 The installation of the plugin must be done from the Kibana home directory.
 ```shell
-# cd /usr/share/kibana
-# sudo -u kibana /usr/share/kibana/bin/kibana-plugin install https://packages.wazuh.com/4.x/ui/kibana/wazuh_kibana-4.1.5_7.11.2-1.zip
+sudo cd /usr/share/kibana
+sudo -u kibana /usr/share/kibana/bin/kibana-plugin install https://packages.wazuh.com/4.x/ui/kibana/wazuh_kibana-4.2.4_7.11.2-1.zip
 ```
 6. Enable Kibana access to Wazuh API, edit the file `/usr/share/kibana/data/wazuh/config/wazuh.yml` and replace the url with the Wazuh server’s IP address:
 ```shell
@@ -112,21 +112,21 @@ hosts:
 ```
 7. Enable and start the Kibana service:
 ```shell
-# systemctl daemon-reload
-# systemctl enable kibana
-# systemctl start kibana
+sudo systemctl daemon-reload
+sudo systemctl enable kibana
+sudo systemctl start kibana
 ```
 8. Run the following command to check if the Kibana is active:
 ```shell
-# systemctl status kibana
+sudo systemctl status kibana
 ```
 Access the web interface by url http://10.0.2.0:8080
 
 ### Disabling Kibana repositories
 It is recommended to disabling the Kibana repository to prevent accidental upgrades. To do so, use the following command:
 ```shell
-# sed -i "s/^deb/#deb/" /etc/apt/sources.list.d/elastic-7.x.list
-# apt update
+sudo sed -i "s/^deb/#deb/" /etc/apt/sources.list.d/elastic-7.x.list
+sudo apt update
 ```
 
 **NEXT:** [Wazuh Agent Installation](./wazuh-agent-setup.md)
