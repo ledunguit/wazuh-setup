@@ -17,7 +17,7 @@ sudo curl -s https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key a
 ```
 3. Add the repository:
 ```shell
-sudo echo "deb https://artifacts.elastic.co/packages/7.x/apt stable main" | tee /etc/apt/sources.list.d/elastic-7.x.list
+sudo echo "deb https://artifacts.elastic.co/packages/7.x/apt stable main" | sudo tee /etc/apt/sources.list.d/elastic-7.x.list
 ```
 4. Update the package information:
 ```shell
